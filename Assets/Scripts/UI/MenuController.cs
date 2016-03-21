@@ -22,15 +22,13 @@ public class MenuController : MonoBehaviour
 
 	public void Destroy()
 	{
-		for (int i=0; i<_build.firstIndexBusy.Length; i++)
-		{
-			_floor.SetFreeOrBusy(true, _build.firstIndexBusy[i], _build.secondIndexBusy[i]);
-		}
+		_floorController.CanPosition(_build.indexX, _build.indexY, _build.size, true, true);
+
 		GameObject.Destroy(_build.gameObject);
 		Hide();
 	}
 
 	Building							_build;
 	[SerializeField] MenuInfo			_info;
-	[SerializeField] FloorController	_floor;
+	[SerializeField] FloorController	_floorController;
 }

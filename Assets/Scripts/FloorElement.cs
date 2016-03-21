@@ -18,6 +18,9 @@ public class FloorElement : MonoBehaviour
 		}
 	}
 
+	public int 						indexX; //координаты в массиве всех элементов
+	public int 						indexY;
+
 	bool 							_isFree = true;
 
 	[SerializeField] MeshRenderer 	_render;

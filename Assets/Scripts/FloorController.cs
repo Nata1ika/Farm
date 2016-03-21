@@ -30,6 +30,14 @@ public class FloorController : MonoBehaviour
 		}
 	}
 
+	public void SetFreeOrBusy(bool free, int x, int y)
+	{
+		if (_floorElements != null && x >= 0 && y >= 0 && x < length && y < length)
+		{
+			_floorElements[x,y].isFree = free;
+		}
+	}
+
 	[SerializeField] GameObject		_prefab;
 
 	FloorElement[,]					_floorElements;

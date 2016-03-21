@@ -51,12 +51,38 @@ public class CameraController : MonoBehaviour
 			return;
 		}
 
+		Vector3 currentPos = Input.mousePosition;
+		Vector3 pos = _camera.position;
+
 		if (_countDrag == 1) //двигаем камеру по x и z
 		{
-			Vector3 pos = _camera.position;
-			Vector2 delta = _speed * (Input.mousePosition - _firstClickPos);
-			_camera.position =  new Vector3(pos.x + delta.y, pos.y, pos.z - delta.x);
-			_firstClickPos = Input.mousePosition;
+			Vector2 delta = _speed * (currentPos - _firstClickPos);
+			_camera.position =  new Vector3(Mathf.Clamp(pos.x + delta.y, minX, maxX), pos.y, Mathf.Clamp(pos.z - delta.x, minZ, maxX));
+			_firstClickPos = currentPos;
+		}
+		else //камеру по y двигаем
+		{
+			float firstLength = (currentPos - _firstClickPos).magnitude; //длина вектора движения первого пальца
+			float secondLength = (currentPos - _secondClickPos).magnitude; //второго
+			float dist = (_secondClickPos - _firstClickPos).magnitude; //первоначальное расстояние между пальцами
+			float deltaPosY;
+			if (firstLength < secondLength && dist > secondLength)//сближение пальцев, камера вверх
+			{
+				deltaPosY = firstLength;
+			}
+			else if (firstLength > secondLength && dist > firstLength)//сближение пальцев, камера вверх
+			{
+				deltaPosY = secondLength;
+			}
+			else if (firstLength < secondLength && dist < secondLength)//пальца отдаляются, камера вниз
+			{
+				deltaPosY = - firstLength;
+			}
+			else
+			{
+				deltaPosY = - secondLength;
+			}
+			_camera.position = new Vector3(pos.x, Mathf.Clamp(pos.y + deltaPosY, minY, maxY), pos.z);
 		}
 	}
 

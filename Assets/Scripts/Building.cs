@@ -24,12 +24,18 @@ public class Building : MonoBehaviour
 		}
 	}
 
+	public void ActivateBoxCollider()
+	{
+		_collider.enabled = true;
+	}
+
 	public int								size;
 	[System.NonSerialized] public int 		indexX; //индекс плитки, на которм находится объект
 	[System.NonSerialized] public int 		indexY;
 
 	bool									_isCorrectPosition = false;
 
+	[SerializeField] BoxCollider			_collider;
 	[SerializeField] MeshRenderer			_mesh;
 	[SerializeField] Material				_mainMaterial;//основной материал 
 	[SerializeField] Material				_errorMaterial;//материал, при котором строение находится на уже занятой клетке

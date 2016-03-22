@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour
 		else if (_newBuilding.isCorrectPosition) //если есть незакрепленное здание и оно находится в корректном положении, то закрепляем его
 		{
 			_floorController.CanPosition(_newBuilding.indexX, _newBuilding.indexY, _newBuilding.size, true, false);
+			_newBuilding.ActivateBoxCollider();
 			_newBuilding = null; //постановка объекта завершена
 		}
 	}

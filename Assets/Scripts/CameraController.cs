@@ -59,6 +59,7 @@ public class CameraController : MonoBehaviour
 			{
 				deltaPosY = - secondLength;
 			}
+			deltaPosY *= _speedYcamera;
 			_camera.position = new Vector3(pos.x, Mathf.Clamp(pos.y + deltaPosY, minY, maxY), pos.z);
 		}
 	}
@@ -92,7 +93,8 @@ public class CameraController : MonoBehaviour
 	public const float minZ = 0;
 
 	[SerializeField] Transform		_camera;
-	float							_speed = 0.1f;
+	const float						_speed = 0.15f;
+	const float						_speedYcamera = 0.5f;
 
 	int								_countDrag = 0;
 	Vector3							_firstClickPos; //используется для движения камеры влево/вправо вверх/вниз

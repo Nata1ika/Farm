@@ -18,12 +18,12 @@ public class FloorElement : MonoBehaviour
 		}
 	}
 
-	public int 						indexX; //координаты в массиве всех элементов
-	public int 						indexY;
+	[System.NonSerialized] public int 	indexX; //координаты в массиве всех элементов
+	[System.NonSerialized] public int 	indexY;
 
-	bool 							_isFree = true;
+	bool 								_isFree = true;
 
-	[SerializeField] MeshRenderer 	_render;
-	[SerializeField] Material		_freeMaterial;
-	[SerializeField] Material		_busyMaterial;
+	[SerializeField] MeshRenderer 		_render;
+	[SerializeField] Material			_freeMaterial;
+	[SerializeField] Material			_busyMaterial;
 }

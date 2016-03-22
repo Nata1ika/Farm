@@ -11,7 +11,26 @@ public class Building : MonoBehaviour
 		}
 	}
 
+	public bool isCorrectPosition
+	{
+		get
+		{
+			return _isCorrectPosition;
+		}
+		set
+		{
+			_mesh.material = value ? _mainMaterial : _errorMaterial;
+			_isCorrectPosition = value;
+		}
+	}
+
 	public int								size;
-	[System.NonSerialized] public int 		indexX;
-	[System.NonSerialized] public int		indexY;
+	[System.NonSerialized] public int 		indexX; //индекс плитки, на которм находится объект
+	[System.NonSerialized] public int 		indexY;
+
+	bool									_isCorrectPosition = false;
+
+	[SerializeField] MeshRenderer			_mesh;
+	[SerializeField] Material				_mainMaterial;//основной материал 
+	[SerializeField] Material				_errorMaterial;//материал, при котором строение находится на уже занятой клетке
 }

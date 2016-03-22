@@ -46,9 +46,9 @@ public class FloorController : MonoBehaviour
 		if (0 <= x - size / 2 - size % 2 + 1 && x + size / 2 < length &&
 		    0 <= y - size / 2 - size % 2 + 1 && y + size / 2 < length)
 		{
-			for (int i = x - size / 2 - size % 2 + 1; i < x + size / 2; i++)
+			for (int i = x - size / 2 - size % 2 + 1; i <= x + size / 2; i++)
 			{
-				for (int j = y - size / 2 - size % 2 + 1; j < y + size / 2; j++)
+				for (int j = y - size / 2 - size % 2 + 1; j <= y + size / 2; j++)
 				{
 					if (changeState)
 					{
@@ -61,14 +61,7 @@ public class FloorController : MonoBehaviour
 				}
 			}
 
-			if (! changeState)
-			{
-				return CanPosition(x, y, size, true, isFree);
-			}
-			else
-			{
-				return true;
-			}
+			return true;
 		}
 		else //какая-то из клеток куба не влезла
 		{

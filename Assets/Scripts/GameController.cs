@@ -19,7 +19,16 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	public void OnClick() //попытка закрепить здание или вызвать у уже имеющегося здания информацию
+	public void OnClick()
+	{
+		if (_newBuilding != null && _newBuilding.isCorrectPosition)
+		{
+			_floorController.CanPosition(_newBuilding.indexX, _newBuilding.indexY, _newBuilding.size, true, false);
+			_newBuilding = null; //постановка объекта завершена
+		}
+	}
+
+	void Update() //попытка закрепить здание или вызвать у уже имеющегося здания информацию
 	{
 		if (_newBuilding != null)
 		{
@@ -33,10 +42,13 @@ public class GameController : MonoBehaviour
 			GameObject go = hit.collider.gameObject; //выбранный объект
 			FloorElement floorElement = go.GetComponent<FloorElement>();
 			//выбранный объект оказался не плиткой пола или часть клеток уже заняты
-			if (floorElement == null || ! _floorController.CanPosition(floorElement.indexX, floorElement.indexY, _newBuilding.size, false, false)) 
+			if (floorElement == null) 
 			{
 				return;
 			}
+			_newBuilding.indexX = floorElement.indexX;
+			_newBuilding.indexY = floorElement.indexY;
+
 			//ставьм строение в нужное место
 			Vector3 delta = new Vector3(0, FloorElement.length / 2, 0);
 
@@ -44,10 +56,9 @@ public class GameController : MonoBehaviour
 			{
 				delta += new Vector3(FloorElement.length / 2, 0, FloorElement.length / 2);
 			}
-
 			_newBuilding.gameObject.transform.position = floorElement.gameObject.transform.position + delta;
 
-			_newBuilding = null; //постановка объекта завершена
+			_newBuilding.isCorrectPosition = _floorController.CanPosition(floorElement.indexX, floorElement.indexY, _newBuilding.size, false, false);
 		}
 	}
 

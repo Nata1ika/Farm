@@ -21,7 +21,25 @@ public class GameController : MonoBehaviour
 
 	public void OnClick()
 	{
-		if (_newBuilding != null && _newBuilding.isCorrectPosition)
+		if (_newBuilding == null) //нет незакрепленных зданий, попытка вызвать меню у уже имеющегося
+		{
+			// создаем луч на основе позиции мыши и компонента камеры,принадлежащей текущему объекту
+			Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit; //будет содержать результат "бросания" луча в пространство сцены
+			if (! Physics.Raycast(ray, out hit)) // Если не попали в какой-либо объект
+			{
+				return;
+			}
+			GameObject go = hit.collider.gameObject; //выбранный объект
+			Building building = go.GetComponent<Building>();
+			//выбранный объект оказался не зданием
+			if (building == null) 
+			{
+				return;
+			}
+			_info.Show(building);
+		}
+		else if (_newBuilding.isCorrectPosition) //если есть незакрепленное здание и оно находится в корректном положении, то закрепляем его
 		{
 			_floorController.CanPosition(_newBuilding.indexX, _newBuilding.indexY, _newBuilding.size, true, false);
 			_newBuilding = null; //постановка объекта завершена
@@ -65,6 +83,7 @@ public class GameController : MonoBehaviour
 	[SerializeField] Transform			_parentBuilds; //родитель всех зданий
 	[SerializeField] Camera				_camera;
 	[SerializeField] FloorController	_floorController;
+	[SerializeField] MenuController		_info;
 
 	Building 							_newBuilding; //новое здание, которое ожидает постановки
 }

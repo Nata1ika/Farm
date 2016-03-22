@@ -3,26 +3,8 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
-	public bool sleep
-	{
-		get
-		{
-			return _sleep;
-		}
-		set
-		{
-			_sleep = value;
-			_countDrag = 0;
-		}
-	}
-
 	public void PointerDown()
 	{
-		if (sleep)
-		{
-			return;
-		}
-
 		if (_countDrag == 0) //движение только началось 
 		{
 			_firstClickPos = Input.mousePosition;
@@ -46,11 +28,6 @@ public class CameraController : MonoBehaviour
 
 	public void Drag()
 	{
-		if (sleep)
-		{
-			return;
-		}
-
 		Vector3 currentPos = Input.mousePosition;
 		Vector3 pos = _camera.position;
 
@@ -115,9 +92,8 @@ public class CameraController : MonoBehaviour
 	public const float minZ = 0;
 
 	[SerializeField] Transform		_camera;
-	float							_speed = 0.2f;
+	float							_speed = 0.1f;
 
-	bool							_sleep = false; //при true камера неподвижна
 	int								_countDrag = 0;
 	Vector3							_firstClickPos; //используется для движения камеры влево/вправо вверх/вниз
 	Vector3							_secondClickPos; //для изменения масштаба, движение камеры по Y

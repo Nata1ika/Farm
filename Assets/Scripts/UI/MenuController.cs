@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MenuController : MonoBehaviour
 {
-	void Show(Building buid)
+	public void Show(Building buid)
 	{
 		gameObject.SetActive(true);
 		_build = buid;
